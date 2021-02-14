@@ -69,13 +69,12 @@ class JobTest {
 
         assertTrue(str.length == 6);
 
-        assertTrue(str[0].startsWith("ID: "));
-        assertTrue(str[1].startsWith("Name: "));
-        assertTrue(str[2].startsWith("Employer: "));
-        assertTrue(str[3].startsWith("Location: "));
-        assertTrue(str[4].startsWith("Position Type: "));
-        assertTrue(str[5].startsWith("Core Competency: "));
-
+        assertTrue(str[0].endsWith(Integer.toString(jobObj.getId())));
+        assertTrue(str[1].endsWith(jobObj.getName()));
+        assertTrue(str[2].endsWith(jobObj.getEmployer().toString()));
+        assertTrue(str[3].endsWith(jobObj.getLocation().toString()));
+        assertTrue(str[4].endsWith(jobObj.getPositionType().toString()));
+        assertTrue(str[5].endsWith(jobObj.getCoreCompetency().toString()));
     }
 
     @Test

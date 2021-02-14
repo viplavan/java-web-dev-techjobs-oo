@@ -1,5 +1,6 @@
 package org.launchcode.techjobs_oo;
 
+import java.lang.reflect.Field;
 import java.util.Objects;
 
 public class Job {
@@ -21,17 +22,50 @@ public class Job {
         id = nextId;
         nextId++;
     }
+
     public Job(String aName, Employer employer1, Location location1, PositionType positionType1, CoreCompetency coreCompetency1) {
-        //id = aId;
+        this();
         name = aName;
         employer = employer1;
         location = location1;
         positionType = positionType1;
         coreCompetency = coreCompetency1;
     }
-    public String toString(){
-        return name +"," + employer;
+
+    public String toString() {
+        String[] str = {"ID: ", "Name: ", "Employer: ", "Location: ", "Position: ", "CoreCompetency: "};
+        Field[] fields = Job.class.getDeclaredFields();
+        int i = 0;
+        for (Field field : fields) {
+            if (field.getName() == "nextId") {
+
+            } else
+                try {
+                    if (field.get(this) instanceof JobField) {
+                        if (((JobField) field.get(this)).getValue() == "") {
+                            //if field value is empty print Data Not Available
+                            System.out.println(str[i] + "Data Not Available");
+                        } else {
+                            // print job label and field value
+                            System.out.println(str[i] + field.get(this));
+                        }
+                        //
+                        if (field.get(this) == null || field.get(this) == "") {
+                            System.out.println(str[i] + "Data Not Available");
+                        }
+                    } else {
+                        // print non-job-field value
+                        System.out.println(str[i] + field.get(this));
+                    }
+                    i++;
+                } catch (IllegalAccessException e) {
+                    System.out.println(str[i] + "Data Not Available");
+                    i++;
+                }
+        }
+        return "\n";
     }
+
 
     // TODO: Add custom equals and hashCode methods. Consider two Job objects "equal" when their id fields
     //  match.
@@ -91,4 +125,9 @@ public class Job {
     public int getId() {
         return id;
     }
+
+    public String getName() {
+        return name;
+    }
+
 }

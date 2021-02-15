@@ -1,8 +1,9 @@
-package org.launchcode.techjobs_oo;
+package Tests;
 
 import org.junit.Before;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.launchcode.techjobs_oo.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class JobTest {
     Job jobObject1;
     Job jobObject2;
+
     @Before
     public void createJobObjects(){
          jobObject1 = new Job();
@@ -76,18 +78,19 @@ class JobTest {
         assertTrue(str[4].endsWith(jobObj.getPositionType().toString()));
         assertTrue(str[5].endsWith(jobObj.getCoreCompetency().toString()));
     }
+    @Test
+    public void testIf2ndIsSet(){
+        Job jobObj = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+        String str = jobObj.toString();
+        String[] jobArr = str.split("\n");
+        assertEquals("ID: " + jobObj.getId(), jobArr[1]);
+    }
 
     @Test
-    public void testToStringDataUnavailable() {
-    Job job = new Job();
-    String[] str = job.toString().trim().split("\n");
-
-    List<String> list = new ArrayList<String>(Arrays.asList(str));
-        list.remove(0);
-    str = list.toArray(new String[0]);
-
-        for (String string : str) {
-        assertTrue(string.endsWith("Data not available"));
+    public void testIfNoValuePassed() {
+        Job job = new Job("", new Employer(""), new Location(""), new PositionType(""), new CoreCompetency(""));
+        String[] str = job.toString().trim().split("\n");
+        Employer expected = job.getEmployer();
+        assertEquals("", expected);
     }
-  }
-}
+ }

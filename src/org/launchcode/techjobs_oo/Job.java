@@ -31,39 +31,29 @@ public class Job {
         positionType = positionType1;
         coreCompetency = coreCompetency1;
     }
-
     public String toString() {
-        String[] str = {"ID: ", "Name: ", "Employer: ", "Location: ", "Position: ", "CoreCompetency: "};
-        Field[] fields = Job.class.getDeclaredFields();
-        int i = 0;
-        for (Field field : fields) {
-            if (field.getName() == "nextId") {
-
-            } else
-                try {
-                    if (field.get(this) instanceof JobField) {
-                        if (((JobField) field.get(this)).getValue() == "") {
-                            //if field value is empty print Data Not Available
-                            System.out.println(str[i] + "Data Not Available");
-                        } else {
-                            // print job label and field value
-                            System.out.println(str[i] + field.get(this));
-                        }
-                        //
-                        if (field.get(this) == null || field.get(this) == "") {
-                            System.out.println(str[i] + "Data Not Available");
-                        }
-                    } else {
-                        // print non-job-field value
-                        System.out.println(str[i] + field.get(this));
-                    }
-                    i++;
-                } catch (IllegalAccessException e) {
-                    System.out.println(str[i] + "Data Not Available");
-                    i++;
-                }
+            String output = String.format("\nID: %d\n" +
+                "Name: %s\n" +
+                "Employer: %s\n" +
+                "Location: %s\n" +
+                "Position Type: %s\n" +
+                "Core Competency: %s\n", id, name, employer, location, positionType, coreCompetency);
+        if (name.equals("")){
+            name = "Data not available";
         }
-        return "\n";
+        if (employer.getValue().equals("") || employer.getValue() == null){
+            employer.setValue("Data not available");
+        }
+        if (location.getValue().equals("") || location.getValue() == null){
+            location.setValue("Data not available");
+        }
+        if (coreCompetency.getValue().equals("") || coreCompetency.getValue() == null){
+            coreCompetency.setValue("Data not available");
+        }
+        if (positionType.getValue().equals("") || positionType.getValue() == null){
+            positionType.setValue("Data not available");
+        }
+        return output;
     }
 
 

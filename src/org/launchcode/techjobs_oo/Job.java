@@ -31,40 +31,31 @@ public class Job {
         positionType = positionType1;
         coreCompetency = coreCompetency1;
     }
+
     public String toString() {
-            String output = String.format("\nID: %d\n" +
+        String output;
+        if (name.equals("")) {
+            name = "Data not available";
+        }
+        if (employer.getValue().equals("") || employer.getValue() == null) {
+            employer.setValue("Data not available");
+        }
+        if (location.getValue().equals("") || location.getValue() == null) {
+            location.setValue("Data not available");
+        }
+        if (coreCompetency.getValue().equals("") || coreCompetency.getValue() == null) {
+            coreCompetency.setValue("Data not available");
+        }
+        if (positionType.getValue().equals("") || positionType.getValue() == null) {
+            positionType.setValue("Data not available");
+        }
+        output = String.format("\nID: %d\n" +
                 "Name: %s\n" +
                 "Employer: %s\n" +
                 "Location: %s\n" +
                 "Position Type: %s\n" +
                 "Core Competency: %s\n", id, name, employer, location, positionType, coreCompetency);
-        if (name.equals("")){
-            name = "Data not available";
-        }
-        if (employer.getValue().equals("") || employer.getValue() == null){
-            employer.setValue("Data not available");
-        }
-        if (location.getValue().equals("") || location.getValue() == null){
-            location.setValue("Data not available");
-        }
-        if (coreCompetency.getValue().equals("") || coreCompetency.getValue() == null){
-            coreCompetency.setValue("Data not available");
-        }
-        if (positionType.getValue().equals("") || positionType.getValue() == null){
-            positionType.setValue("Data not available");
-        }
         return output;
-    }
-
-
-    // TODO: Add custom equals and hashCode methods. Consider two Job objects "equal" when their id fields
-    //  match.
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof CoreCompetency)) return false;
-        CoreCompetency coreCompetency = (CoreCompetency) o;
-        return id == coreCompetency.id;
     }
 
     @Override
@@ -112,12 +103,8 @@ public class Job {
         this.coreCompetency = coreCompetency;
     }
 
-    public int getId() {
-        return id;
-    }
-
     public String getName() {
         return name;
     }
-
+    public int getId(){ return id;}
 }
